@@ -52,10 +52,18 @@ static inline CGPoint CGPointMultiplyScalar(const CGPoint a, const CGFloat b)
         
         [self initializedBackground:size];
         
+        [self initializedScrollingBackgroung];
+        
+        [self initializeBird];
+        
+        self.physicsWorld.gravity = CGVectorMake(0, -4.0);
+        
+        self.physicsWorld.contactDelegate = self;
         
         
         
     }
+    return self;
 }
 
 -(void) initializedBackground:(CGSize) scenesize
