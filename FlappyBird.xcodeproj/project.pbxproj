@@ -7,6 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		38107E98195C8AB4009410F2 /* Bottom_Scroller.png in Resources */ = {isa = PBXBuildFile; fileRef = 38107E8E195C8AB4009410F2 /* Bottom_Scroller.png */; };
+		38107E99195C8AB4009410F2 /* Day_Background.png in Resources */ = {isa = PBXBuildFile; fileRef = 38107E8F195C8AB4009410F2 /* Day_Background.png */; };
+		38107E9A195C8AB4009410F2 /* Downward_Green_Pipe.png in Resources */ = {isa = PBXBuildFile; fileRef = 38107E90195C8AB4009410F2 /* Downward_Green_Pipe.png */; };
+		38107E9B195C8AB4009410F2 /* Game_Over.png in Resources */ = {isa = PBXBuildFile; fileRef = 38107E91195C8AB4009410F2 /* Game_Over.png */; };
+		38107E9C195C8AB4009410F2 /* Night_Background.png in Resources */ = {isa = PBXBuildFile; fileRef = 38107E92195C8AB4009410F2 /* Night_Background.png */; };
+		38107E9D195C8AB4009410F2 /* Play_Button.png in Resources */ = {isa = PBXBuildFile; fileRef = 38107E93195C8AB4009410F2 /* Play_Button.png */; };
+		38107E9E195C8AB4009410F2 /* Upward_Green_Pipe.png in Resources */ = {isa = PBXBuildFile; fileRef = 38107E94195C8AB4009410F2 /* Upward_Green_Pipe.png */; };
+		38107E9F195C8AB4009410F2 /* Yellow_Bird_Wing_Down.png in Resources */ = {isa = PBXBuildFile; fileRef = 38107E95195C8AB4009410F2 /* Yellow_Bird_Wing_Down.png */; };
+		38107EA0195C8AB4009410F2 /* Yellow_Bird_Wing_Straight.png in Resources */ = {isa = PBXBuildFile; fileRef = 38107E96195C8AB4009410F2 /* Yellow_Bird_Wing_Straight.png */; };
+		38107EA1195C8AB4009410F2 /* Yellow_Bird_Wing_Up.png in Resources */ = {isa = PBXBuildFile; fileRef = 38107E97195C8AB4009410F2 /* Yellow_Bird_Wing_Up.png */; };
 		38ACC44F195C87C900A1CED9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38ACC44E195C87C900A1CED9 /* Foundation.framework */; };
 		38ACC451195C87C900A1CED9 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38ACC450195C87C900A1CED9 /* CoreGraphics.framework */; };
 		38ACC453195C87C900A1CED9 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38ACC452195C87C900A1CED9 /* UIKit.framework */; };
@@ -37,6 +47,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		38107E8E195C8AB4009410F2 /* Bottom_Scroller.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Bottom_Scroller.png; sourceTree = "<group>"; };
+		38107E8F195C8AB4009410F2 /* Day_Background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Day_Background.png; sourceTree = "<group>"; };
+		38107E90195C8AB4009410F2 /* Downward_Green_Pipe.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Downward_Green_Pipe.png; sourceTree = "<group>"; };
+		38107E91195C8AB4009410F2 /* Game_Over.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Game_Over.png; sourceTree = "<group>"; };
+		38107E92195C8AB4009410F2 /* Night_Background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Night_Background.png; sourceTree = "<group>"; };
+		38107E93195C8AB4009410F2 /* Play_Button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Play_Button.png; sourceTree = "<group>"; };
+		38107E94195C8AB4009410F2 /* Upward_Green_Pipe.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Upward_Green_Pipe.png; sourceTree = "<group>"; };
+		38107E95195C8AB4009410F2 /* Yellow_Bird_Wing_Down.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Yellow_Bird_Wing_Down.png; sourceTree = "<group>"; };
+		38107E96195C8AB4009410F2 /* Yellow_Bird_Wing_Straight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Yellow_Bird_Wing_Straight.png; sourceTree = "<group>"; };
+		38107E97195C8AB4009410F2 /* Yellow_Bird_Wing_Up.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Yellow_Bird_Wing_Up.png; sourceTree = "<group>"; };
 		38ACC44B195C87C900A1CED9 /* FlappyBird.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlappyBird.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		38ACC44E195C87C900A1CED9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		38ACC450195C87C900A1CED9 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -87,6 +107,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		38107E8D195C8AB4009410F2 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				38107E8E195C8AB4009410F2 /* Bottom_Scroller.png */,
+				38107E8F195C8AB4009410F2 /* Day_Background.png */,
+				38107E90195C8AB4009410F2 /* Downward_Green_Pipe.png */,
+				38107E91195C8AB4009410F2 /* Game_Over.png */,
+				38107E92195C8AB4009410F2 /* Night_Background.png */,
+				38107E93195C8AB4009410F2 /* Play_Button.png */,
+				38107E94195C8AB4009410F2 /* Upward_Green_Pipe.png */,
+				38107E95195C8AB4009410F2 /* Yellow_Bird_Wing_Down.png */,
+				38107E96195C8AB4009410F2 /* Yellow_Bird_Wing_Straight.png */,
+				38107E97195C8AB4009410F2 /* Yellow_Bird_Wing_Up.png */,
+			);
+			path = Images;
+			sourceTree = "<group>";
+		};
 		38ACC442195C87C900A1CED9 = {
 			isa = PBXGroup;
 			children = (
@@ -121,6 +158,7 @@
 		38ACC456195C87C900A1CED9 /* FlappyBird */ = {
 			isa = PBXGroup;
 			children = (
+				38107E8D195C8AB4009410F2 /* Images */,
 				38ACC45F195C87C900A1CED9 /* AppDelegate.h */,
 				38ACC460195C87C900A1CED9 /* AppDelegate.m */,
 				38ACC462195C87C900A1CED9 /* Main.storyboard */,
@@ -240,10 +278,20 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				38107E9C195C8AB4009410F2 /* Night_Background.png in Resources */,
+				38107E9D195C8AB4009410F2 /* Play_Button.png in Resources */,
+				38107E99195C8AB4009410F2 /* Day_Background.png in Resources */,
+				38107E9A195C8AB4009410F2 /* Downward_Green_Pipe.png in Resources */,
 				38ACC45B195C87C900A1CED9 /* InfoPlist.strings in Resources */,
 				38ACC46E195C87C900A1CED9 /* Images.xcassets in Resources */,
+				38107EA1195C8AB4009410F2 /* Yellow_Bird_Wing_Up.png in Resources */,
 				38ACC46C195C87C900A1CED9 /* Spaceship.png in Resources */,
+				38107E9B195C8AB4009410F2 /* Game_Over.png in Resources */,
 				38ACC464195C87C900A1CED9 /* Main.storyboard in Resources */,
+				38107EA0195C8AB4009410F2 /* Yellow_Bird_Wing_Straight.png in Resources */,
+				38107E9E195C8AB4009410F2 /* Upward_Green_Pipe.png in Resources */,
+				38107E98195C8AB4009410F2 /* Bottom_Scroller.png in Resources */,
+				38107E9F195C8AB4009410F2 /* Yellow_Bird_Wing_Down.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -476,6 +524,7 @@
 				38ACC486195C87C900A1CED9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		38ACC487195C87C900A1CED9 /* Build configuration list for PBXNativeTarget "FlappyBirdTests" */ = {
 			isa = XCConfigurationList;
@@ -484,6 +533,7 @@
 				38ACC489195C87C900A1CED9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
