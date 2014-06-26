@@ -123,11 +123,74 @@ static inline CGPoint CGPointMultiplyScalar(const CGPoint a, const CGFloat b)
      }];
 }
 
-//-(SKSpriteNode*) createPillerInUpwardDirection
+-(SKSpriteNode*) createPillerInUpwardDirection :(BOOL) isUpward
+{
+    NSString* pillerImageName = Nil;
+    if (isUpward) {
+        pillerImageName = UPWARD_PILLER;
+    }
+    else
+    {
+        pillerImageName = Downward_PILLER;
+    }
+    
+    SKSpriteNode* piller = [SKSpriteNode spriteNodeWithImageNamed:pillerImageName];
+    piller.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:piller.size];
+    piller.physicsBody.dynamic = YES;
+    piller.physicsBody.categoryBitMask = pillerCategory;
+    piller.physicsBody.contactTestBitMask = flappyBirdCategory;
+    piller.physicsBody.collisionBitMask = 0;
+    
+    piller.physicsBody.affectedByGravity = NO;
+    [self addChild:piller];
+    
+    return piller;
+}
+
+-(void)addPiller
+{
+    SKSpriteNode* upwardPiller = [self createPillerInUpwardDirection:YES];
+    
+    int minY = MINIMUM_PILLER_HEIGHT;
+    int maxY = self.frame.size.height - MINIMUM_PILLER_HEIGHT - GAP_BETWEEN_ABOVE_AND_BELOW_PILLER - bottomScrollerHeight;
+    
+    int rangeY = maxY - minY;
+    
+    float upwardPillerY = ((arc4random() % rangeY) +minY) - upwardPiller.size.height;
+    upwardPillerY += bottomScrollerHeight;
+    upwardPillerY += upwardPiller.size.height * 0.2f;
+    
+    upwardPiller.position = CGPointMake(self.frame.size.width+upwardPiller.size.width, upwardPillerY);
+    
+    SKSpriteNode* downwardPiller = [self createPillerInUpwardDirection:NO];
+    float downwardPillerY = upwardPillerY + bottomScrollerHeight + GAP_BETWEEN_ABOVE_AND_BELOW_PILLER;
+    downwardPiller.position = CGPointMake(upwardPiller.position.x, downwardPillerY);
+    
+    SKAction* upwardActionMove = [SKAction moveToX:-upwardPiller.size.width/2 duration:(TIME*0.2)];
+    SKAction* upwardActionMoveDone = [SKAction removeFromParent];
+    [upwardPiller runAction:[SKAction sequence:@[upwardActionMove,upwardActionMoveDone]]];
+    
+    
+    SKAction* downwardPillerMove = [SKAction moveToX:-downwardPiller.size.width/2 duration:(TIME*0.2)];
+    SKAction* downwardPillerMoveDone = [SKAction removeFromParent];
+    [downwardPiller runAction:[SKAction sequence:@[downwardPillerMove,downwardPillerMoveDone]]];
+    
+}
+
+- (void)updateWithTimeSinceLastUpdate:(CFTimeInterval)timeSinceLast
+{
+    self.lastSpawnInterval += timeSinceLast;
+    if (self.lastSpawnInterval > TIME)
+    {
+        self.lastSpawnInterval = 0;
+        [self addPiller];
+    }
+}
 
 
 - (void)update:(NSTimeInterval)currentTime
 {
+    
     if (self.lastUpdateTimeInterval)
     {
         _dt = currentTime - _lastUpdateTimeInterval;
@@ -139,6 +202,15 @@ static inline CGPoint CGPointMultiplyScalar(const CGPoint a, const CGFloat b)
     
     CFTimeInterval timeSinceLast = currentTime - self.lastUpdateTimeInterval;
     self.lastUpdateTimeInterval = currentTime;
+    if (timeSinceLast > TIME)
+    {
+        timeSinceLast = 1.0 / (TIME * 60.0);
+        self.lastUpdateTimeInterval = currentTime;
+    }
+    
+    [self updateWithTimeSinceLastUpdate:timeSinceLast];
+    
+    
     
     [self moveBottomScroller];
 }
