@@ -123,10 +123,11 @@ static inline CGPoint CGPointMultiplyScalar(const CGPoint a, const CGFloat b)
      }];
 }
 
--(SKSpriteNode*) createPillerInUpwardDirection :(BOOL) isUpward
+- (SKSpriteNode*) createPillerWithUpwardDirection:(BOOL) isUpwards
 {
-    NSString* pillerImageName = Nil;
-    if (isUpward) {
+    NSString* pillerImageName = nil;
+    if (isUpwards)
+    {
         pillerImageName = UPWARD_PILLER;
     }
     else
@@ -134,47 +135,70 @@ static inline CGPoint CGPointMultiplyScalar(const CGPoint a, const CGFloat b)
         pillerImageName = Downward_PILLER;
     }
     
-    SKSpriteNode* piller = [SKSpriteNode spriteNodeWithImageNamed:pillerImageName];
+    SKSpriteNode * piller = [SKSpriteNode spriteNodeWithImageNamed:pillerImageName];
+    
+    /*
+     * Create a physics and specify its geometrical shape so that collision algorithm
+     * can work more prominently
+     */
     piller.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:piller.size];
     piller.physicsBody.dynamic = YES;
+    
+    //Category to which this object belongs to
     piller.physicsBody.categoryBitMask = pillerCategory;
+    
+    //To notify intersection with objects
     piller.physicsBody.contactTestBitMask = flappyBirdCategory;
+    
+    //To detect collision with category of objects. Default all categories
     piller.physicsBody.collisionBitMask = 0;
     
+    /*
+     * Has to be explicitely mentioned. If not mentioned, pillar starts moving down becuase of gravity.
+     */
     piller.physicsBody.affectedByGravity = NO;
+    
     [self addChild:piller];
     
     return piller;
 }
 
--(void)addPiller
+- (void)addAPiller
 {
-    SKSpriteNode* upwardPiller = [self createPillerInUpwardDirection:YES];
+    //Create Upward directed pillar
+    SKSpriteNode* upwardPiller = [self createPillerWithUpwardDirection:YES];
     
     int minY = MINIMUM_PILLER_HEIGHT;
-    int maxY = self.frame.size.height - MINIMUM_PILLER_HEIGHT - GAP_BETWEEN_ABOVE_AND_BELOW_PILLER - bottomScrollerHeight;
-    
+    int maxY = self.frame.size.height - bottomScrollerHeight - GAP_BETWEEN_ABOVE_AND_BELOW_PILLER - MINIMUM_PILLER_HEIGHT;
     int rangeY = maxY - minY;
     
-    float upwardPillerY = ((arc4random() % rangeY) +minY) - upwardPiller.size.height;
+    float upwardPillerY = ((arc4random() % rangeY) + minY) - upwardPiller.size.height;
     upwardPillerY += bottomScrollerHeight;
-    upwardPillerY += upwardPiller.size.height * 0.2f;
+    upwardPillerY += upwardPiller.size.height * 0.5f;
     
-    upwardPiller.position = CGPointMake(self.frame.size.width+upwardPiller.size.width, upwardPillerY);
+    /*Set position of pillar start position outside the screen so that we can be
+     sure that image is created before it comes inside screen visibility area
+     */
+    upwardPiller.position = CGPointMake(self.frame.size.width + upwardPiller.size.width/2, upwardPillerY);
     
-    SKSpriteNode* downwardPiller = [self createPillerInUpwardDirection:NO];
-    float downwardPillerY = upwardPillerY + bottomScrollerHeight + GAP_BETWEEN_ABOVE_AND_BELOW_PILLER;
-    downwardPiller.position = CGPointMake(upwardPiller.position.x, downwardPillerY);
+    //Create Downward directed pillar
+    SKSpriteNode* downwardPiller = [self createPillerWithUpwardDirection:NO];
+    float downloadPillerY = upwardPillerY + upwardPiller.size.height + GAP_BETWEEN_ABOVE_AND_BELOW_PILLER;
+    downwardPiller.position = CGPointMake(upwardPiller.position.x, downloadPillerY);
     
-    SKAction* upwardActionMove = [SKAction moveToX:-upwardPiller.size.width/2 duration:(TIME*0.2)];
-    SKAction* upwardActionMoveDone = [SKAction removeFromParent];
-    [upwardPiller runAction:[SKAction sequence:@[upwardActionMove,upwardActionMoveDone]]];
+    /*
+     * Create Upward Piller actions.
+     * First action has to be the movement of pillar. Right to left.
+     * Once first action is complete, remove that node from Scene
+     */
+    SKAction * upwardPillerActionMove = [SKAction moveTo:CGPointMake(-upwardPiller.size.width/2, upwardPillerY) duration:(TIME * 2)];
+    SKAction * upwardPillerActionMoveDone = [SKAction removeFromParent];
+    [upwardPiller runAction:[SKAction sequence:@[upwardPillerActionMove, upwardPillerActionMoveDone]]];
     
-    
-    SKAction* downwardPillerMove = [SKAction moveToX:-downwardPiller.size.width/2 duration:(TIME*0.2)];
-    SKAction* downwardPillerMoveDone = [SKAction removeFromParent];
-    [downwardPiller runAction:[SKAction sequence:@[downwardPillerMove,downwardPillerMoveDone]]];
-    
+    // Create Downward Piller actions
+    SKAction * downwardPillerActionMove = [SKAction moveTo:CGPointMake(-downwardPiller.size.width/2, downloadPillerY) duration:(TIME * 2)];
+    SKAction * downwardPillerActionMoveDone = [SKAction removeFromParent];
+    [downwardPiller runAction:[SKAction sequence:@[downwardPillerActionMove, downwardPillerActionMoveDone]]];
 }
 
 - (void)updateWithTimeSinceLastUpdate:(CFTimeInterval)timeSinceLast
@@ -183,7 +207,7 @@ static inline CGPoint CGPointMultiplyScalar(const CGPoint a, const CGFloat b)
     if (self.lastSpawnInterval > TIME)
     {
         self.lastSpawnInterval = 0;
-        [self addPiller];
+        [self addAPiller];
     }
 }
 
