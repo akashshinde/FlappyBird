@@ -239,4 +239,38 @@ static inline CGPoint CGPointMultiplyScalar(const CGPoint a, const CGFloat b)
     [self moveBottomScroller];
 }
 
+- (void)pillar:(SKSpriteNode *)pillar didCollideWithBird:(SKSpriteNode *)bird
+{
+    //Remove pillar if collision is detected and continue to play
+    [pillar removeFromParent];
+}
+
+- (void)didBeginContact:(SKPhysicsContact *)contact
+{
+    SKPhysicsBody *firstBody, *secondBody;
+    
+    if (contact.bodyA.categoryBitMask < contact.bodyB.categoryBitMask)
+    {
+        firstBody = contact.bodyA;
+        secondBody = contact.bodyB;
+    }
+    else
+    {
+        firstBody = contact.bodyB;
+        secondBody = contact.bodyA;
+    }
+    
+    if ((firstBody.categoryBitMask & pillerCategory) != 0 &&
+        (secondBody.categoryBitMask & flappyBirdCategory) != 0)
+    {
+        [self pillar:(SKSpriteNode *) firstBody.node didCollideWithBird:(SKSpriteNode *) secondBody.node];
+    }
+}
+
+
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    _flappyBird.physicsBody.velocity = CGVectorMake(0, 250);
+}
+
 @end
