@@ -14,6 +14,8 @@
 #define UPWARD_PILLER @"Upward_Green_Pipe"
 #define Downward_PILLER @"Downward_Green_Pipe"
 
+static const float BG_VELOCITY = (TIME * 60);
+
 static int32_t pillerCategory = 0x1 << 0;
 static int32_t flappyBirdCategory = 0x1 <<1;
 
@@ -100,26 +102,45 @@ static inline CGPoint CGPointMultiplyScalar(const CGPoint a, const CGFloat b)
     
 }
 
--(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-    /* Called when a touch begins */
-    
-    for (UITouch *touch in touches) {
-        CGPoint location = [touch locationInNode:self];
-        
-        SKSpriteNode *sprite = [SKSpriteNode spriteNodeWithImageNamed:@"Spaceship"];
-        
-        sprite.position = location;
-        
-        SKAction *action = [SKAction rotateByAngle:M_PI duration:1];
-        
-        [sprite runAction:[SKAction repeatActionForever:action]];
-        
-        [self addChild:sprite];
-    }
+- (void)moveBottomScroller
+{
+    [self enumerateChildNodesWithName:@"bg" usingBlock: ^(SKNode *node, BOOL *stop)
+     {
+         SKSpriteNode * bg = (SKSpriteNode *) node;
+         CGPoint bgVelocity = CGPointMake(-BG_VELOCITY, 0);
+         CGPoint amtToMove = CGPointMultiplyScalar(bgVelocity,_dt);
+         bg.position = CGPointAdd(bg.position, amtToMove);
+         
+         //Checks if bg node is completely scrolled of the screen, if yes then put it at the end of the other node
+         if (bg.position.x <= -bg.size.width)
+         {
+             bg.position = CGPointMake(bg.position.x + bg.size.width*2,
+                                       bg.position.y);
+         }
+         
+         [bg removeFromParent];
+         [self addChild:bg];        //Ordering is not possible. so this is a hack
+     }];
 }
 
--(void)update:(CFTimeInterval)currentTime {
-    /* Called before each frame is rendered */
+//-(SKSpriteNode*) createPillerInUpwardDirection
+
+
+- (void)update:(NSTimeInterval)currentTime
+{
+    if (self.lastUpdateTimeInterval)
+    {
+        _dt = currentTime - _lastUpdateTimeInterval;
+    }
+    else
+    {
+        _dt = 0;
+    }
+    
+    CFTimeInterval timeSinceLast = currentTime - self.lastUpdateTimeInterval;
+    self.lastUpdateTimeInterval = currentTime;
+    
+    [self moveBottomScroller];
 }
 
 @end
